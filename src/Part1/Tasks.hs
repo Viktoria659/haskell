@@ -59,11 +59,11 @@ isDayCorrect d m v = if (m == 1 && d <= 31) then True else
 -- возведение числа в степень, duh
 -- готовые функции и плавающую арифметику использовать нельзя
 myPow :: Integer -> Integer -> Integer
-myPow x y | (y == 0 && x == 0) = error "args musn't be 0"
+myPow x y -- | (y == 0 && x == 0) = error "args musn't be 0"
        | y == 0 = 1
        | x == 0 = 0
        | y == 1 = x
-       | y < 0 =  error "exponentiation number must be >= 0"
+       -- | y < 0 =  error "exponentiation number must be >= 0"
        | otherwise = myExpon 1 x y
 
 myExpon ::  Integer -> Integer -> Integer -> Integer
