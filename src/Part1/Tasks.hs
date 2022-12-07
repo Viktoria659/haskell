@@ -39,7 +39,7 @@ isDateCorrect d m y | d <= 0 = False
        | d >= 32 = False
        | m <= 0 = False
        | m >= 13 = False
-       | y <= 0 = False
+--       | y <= 0 = False
        | otherwise = isDayCorrect d m (((mod y 4 == 0) && (mod y 100 > 0)) || (mod y 400 == 0))
 
 isDayCorrect :: Integer -> Integer -> Bool -> Bool
