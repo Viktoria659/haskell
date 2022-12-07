@@ -24,13 +24,10 @@ myCos z = f 0 0 z 0
 
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
-myGCD x y | x == y = x
-       | x == 0 = y
-       | y == 0 = x
-       | otherwise = if x > y then fanGCD x y else fanGCD y x
-
-fanGCD :: Integer -> Integer -> Integer
-fanGCD x y = if (mod x y) == 0 then y else fanGCD y (mod x y)
+myGCD 0 0 = 0
+myGCD x y = if x > y then fanGCD x y else fanGCD y x where
+  fanGCD x 0 =  abs x
+  fanGCD x y = fanGCD y (mod x y)
 
 -- является ли дата корректной с учётом количества дней в месяце и
 -- вискокосных годов?
