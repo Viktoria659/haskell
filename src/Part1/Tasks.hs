@@ -1,10 +1,11 @@
 module Part1.Tasks where
 
-import Util(notImplementedYet)
+import Data.Fixed
 
 -- синус числа (формула Тейлора)
 mySin :: Double -> Double
-mySin z = f 0 0 z 1
+mySin z = sign * (f 0 0 (mod' (abs z) (2 * pi)) 1) where
+    sign = if z < 0 then (-1) else 1
 
 f :: Double -> Double -> Double -> Double -> Double
 f ac 50 _ _ = ac
@@ -20,7 +21,7 @@ fac n = n * fac (n - 1)
 
 -- косинус числа (формула Тейлора)
 myCos :: Double -> Double
-myCos z = f 0 0 z 0
+myCos z = f 0 0 (mod' z (2 * pi)) 0
 
 -- наибольший общий делитель двух чисел
 myGCD :: Integer -> Integer -> Integer
