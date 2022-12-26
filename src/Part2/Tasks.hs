@@ -26,9 +26,17 @@ infixl 7 |*|
 -- Заменить переменную `varName` на `replacement`
 -- во всём выражении `expression`
 replaceVar :: String -> Term -> Term -> Term
-replaceVar = notImplementedYet
+replaceVar varName t (Variable(x)) | x == varName = t
+                                   | otherwise = Variable x
+replaceVar varName t (IntConstant(x)) = IntConstant x
+replaceVar varName t  (BinaryTerm op lhv rhv) = BinaryTerm op (replaceVar varName t lhv) (replaceVar varName t rhv)
 
 -- Посчитать значение выражения `Term`
 -- если оно состоит только из констант
 evaluate :: Term -> Term
-evaluate = notImplementedYet
+evaluate (BinaryTerm Plus (IntConstant a) (IntConstant b)) = IntConstant (a + b)
+evaluate (BinaryTerm Minus (IntConstant a) (IntConstant b)) = IntConstant (a - b)
+evaluate (BinaryTerm Times (IntConstant a) (IntConstant b)) = IntConstant (a * b)
+evaluate (BinaryTerm op (BinaryTerm op1 a1 b1) (BinaryTerm op2 a2 b2)) =
+  evaluate (BinaryTerm op (evaluate (BinaryTerm op1 a1 b1)) (evaluate (BinaryTerm op2 a2 b2)))
+evaluate term = term
