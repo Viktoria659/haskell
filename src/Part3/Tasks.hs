@@ -28,10 +28,16 @@ mostFreq a = snd $ maximum $ histogram $ toList a
 
 -- Дан список lst. Вернуть список элементов из lst без повторений, порядок может быть произвольным.
 uniq :: (Eq a) => [a] -> [a]
-uniq = notImplementedYet
+uniq [] = []
+uniq a = nubMy a []
+
+nubMy :: (Eq a) => [a] -> [a] -> [a]
+nubMy [] a =  a
+nubMy (x:xs) a = if elem x a then (nubMy xs a) else (nubMy xs (x : a))
 
 -- Функция grokBy принимает на вход список Lst и функцию F и каждому возможному
 -- значению результата применения F к элементам Lst ставит в соответствие список элементов Lst,
 -- приводящих к этому результату. Результат следует представить в виде списка пар.
 grokBy :: (Eq k) => (a -> k) -> [a] -> [(k, [a])]
-grokBy f l = notImplementedYet
+grokBy f l = map (\x -> (x, filter (\y -> (f y) == x) l)) $ nub res where
+  res = map f l
